@@ -1,1 +1,1 @@
-echo "automating AWS with Terraform" 
+  "automating AWS with Terraform"
