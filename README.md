@@ -1,1 +1,2 @@
-  "automating AWS with Terraform"
+automating AWS with Terraform 
+we are using git branches to track changes
