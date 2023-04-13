@@ -87,23 +87,32 @@ resource "aws_nat_gateway" "nat2" {
   subnet_id     = aws_subnet.public2.id
 }
 
-resource "aws_route_table" "private" {
+resource "aws_route_table" "private1" {
   vpc_id = aws_vpc.main.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.main_ig.id
+    nat_gateway_id = aws_nat_gateway.nat1.id
+  }
+}
+
+resource "aws_route_table" "private2" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat2.id
   }
 }
 
 resource "aws_route_table_association" "private1" {
   subnet_id      = aws_subnet.private1.id
-  route_table_id = aws_route_table.private.id
+  route_table_id = aws_route_table.private1.id
 }
 
 resource "aws_route_table_association" "private2" {
   subnet_id      = aws_subnet.private2.id
-  route_table_id = aws_route_table.private.id
+  route_table_id = aws_route_table.private2.id
 }
 
 
