@@ -65,14 +65,14 @@ resource "aws_eip" "eip" {
 }
 
 resource "aws_nat_gateway" "nat" {
-  count         =  2
+  count         = local.count
   allocation_id = aws_eip.eip[count.index].id
   subnet_id     = aws_subnet.public[count.index].id
 }
 
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
-  count  = 2
+  count  = local.count
   route {
     cidr_block     = "0.0.0.0/0"
 
