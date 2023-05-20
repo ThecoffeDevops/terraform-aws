@@ -13,15 +13,17 @@ locals {
 }
 
 resource "aws_subnet" "public" {
-  count             = local.count
+  count                   = local.count
 
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = local.public_cidr[count.index]
+  map_public_ip_on_launch = "true" 
 
-  availability_zone = local.availability_zones[count.index] 
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = local.public_cidr[count.index]
+
+  availability_zone       = local.availability_zones[count.index] 
 
   tags = {
-    Name            = "${var.environment}-public${count.index + 1}"
+    Name                  = "${var.environment}-public${count.index + 1}"
   }
 }
 
